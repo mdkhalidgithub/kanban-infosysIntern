@@ -1,0 +1,47 @@
+<div class="header">
+  <h2>KANBAN FLOW</h2>
+  <button class="logout">LOG OUT</button>
+</div>
+
+<div class="board">
+  
+  <div class="column">
+    <div class="column-title">NEW TASK</div>
+    <div class="task" *ngFor="let task of newTasks">
+      <h4>{{ task.title }}</h4>
+      <p>{{ task.project }}</p>
+      <span class="date">{{ task.date }}</span>
+    </div>
+    <div class="add-task">+ NEW TASK</div>
+  </div>
+
+  
+  <div class="column">
+    <div class="column-title">IN PROGRESS</div>
+    <div class="task" *ngFor="let task of inProgress">
+      <h4>{{ task.title }}</h4>
+      <p>{{ task.project }}</p>
+      <span class="date">{{ task.date }}</span>
+    </div>
+  </div>
+
+  
+  <div class="column">
+    <div class="column-title">COMPLETED</div>
+    <div class="task" *ngFor="let task of completed">
+      <h4>{{ task.title }}</h4>
+      <p>{{ task.project }}</p>
+      <span class="date">{{ task.date }}</span>
+    </div>
+  </div>
+
+  
+  <div class="column">
+    <div class="column-title">DELIVERED</div>
+    <div class="task" *ngFor="let task of delivered">
+      <h4>{{ task.title }}</h4>
+      <p>{{ task.project }}</p>
+      <span class="date">{{ task.date }}</span>
+    </div>
+  </div>
+</div>

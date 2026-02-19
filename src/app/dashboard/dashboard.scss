@@ -1,0 +1,95 @@
+:host {
+  display: block;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  background: #000;
+  color: #fff;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    letter-spacing: 2px;
+  }
+
+  .logout {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Column */
+.column {
+  background: #b8c7d9;
+  border-radius: 6px;
+  padding: 15px;
+  position: relative;
+  min-height: 500px;
+}
+
+.column-title {
+  background: #3a3a3a;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin: -25px auto 20px;
+  width: 70%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Task card */
+.task {
+  background: white;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+
+  h4 {
+    margin: 0 0 5px;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+
+  .date {
+    display: block;
+    margin-top: 6px;
+    color: #c0392b;
+    font-size: 13px;
+  }
+}
+
+.add-task {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #4a5568;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
