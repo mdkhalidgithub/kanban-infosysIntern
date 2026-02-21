@@ -11,8 +11,12 @@
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
       <span class="date">{{ task.date }}</span>
+      <div class="task-actions">
+        <button (click)="editTask(task)">Edit</button>
+        <button (click)="deleteTask(task.id)">Delete</button>
+      </div>
     </div>
-    <div class="add-task">+ NEW TASK</div>
+    <div class="add-task" (click)="openForm()">+ NEW TASK</div>
   </div>
 
   
@@ -22,6 +26,10 @@
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
       <span class="date">{{ task.date }}</span>
+      <div class="task-actions">
+        <button (click)="editTask(task)">Edit</button>
+        <button (click)="deleteTask(task.id)">Delete</button>
+      </div>
     </div>
   </div>
 
@@ -32,6 +40,10 @@
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
       <span class="date">{{ task.date }}</span>
+      <div class="task-actions">
+        <button (click)="editTask(task)">Edit</button>
+        <button (click)="deleteTask(task.id)">Delete</button>
+      </div>
     </div>
   </div>
 
@@ -42,6 +54,31 @@
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
       <span class="date">{{ task.date }}</span>
+      <div class="task-actions">
+        <button (click)="editTask(task)">Edit</button>
+        <button (click)="deleteTask(task.id)">Delete</button>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showForm" (click)="closeForm()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>{{ editingTask ? 'Edit Task' : 'Add New Task' }}</h3>
+    <form (ngSubmit)="editingTask ? updateTask() : addTask()">
+      <input type="text" [(ngModel)]="newTask.title" name="title" placeholder="Task Title" required>
+      <input type="text" [(ngModel)]="newTask.project" name="project" placeholder="Project Name" required>
+      <input type="text" [(ngModel)]="newTask.date" name="date" placeholder="DD/MM/YYYY" required>
+      <select [(ngModel)]="newTask.status" name="status" required>
+        <option value="new">New Task</option>
+        <option value="inProgress">In Progress</option>
+        <option value="completed">Completed</option>
+        <option value="delivered">Delivered</option>
+      </select>
+      <div class="form-actions">
+        <button type="submit">{{ editingTask ? 'Update' : 'Add' }}</button>
+        <button type="button" (click)="closeForm()">Cancel</button>
+      </div>
+    </form>
   </div>
 </div>

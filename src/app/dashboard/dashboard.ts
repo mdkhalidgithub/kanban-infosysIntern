@@ -1,35 +1,82 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 interface Task {
+  id: number;
   title: string;
   project: string;
   date: string;
+  status: 'new' | 'inProgress' | 'completed' | 'delivered';
 }
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent {
-  newTasks: Task[] = [
-    { title: 'Design UI Wireframe', project: 'Project Name', date: '14/03/2025' },
-    { title: 'Design Task Filtering UI', project: 'Project Name', date: '14/03/2025' }
+  tasks: Task[] = [
+    { id: 1, title: 'Design UI Wireframe', project: 'Project Name', date: '14/03/2026', status: 'new' },
+    { id: 2, title: 'Design Task Filtering UI', project: 'Project Name', date: '14/03/2026', status: 'new' },
+    { id: 3, title: 'Implement Task Sorting', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
+    { id: 4, title: 'Implement Task Deadline Alerts', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
+    { id: 5, title: 'Developing Task Card', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
+    { id: 6, title: 'Persistent Theme Setting', project: 'Project Name', date: '24/02/2026', status: 'completed' },
+    { id: 7, title: 'LocalStorage Integration', project: 'Project Name', date: '04/03/2026', status: 'completed' },
+    { id: 8, title: 'User Testing & Feedback', project: 'Project Name', date: '17/02/2026', status: 'delivered' }
   ];
 
-  inProgress: Task[] = [
-    { title: 'Implement Task Sorting', project: 'Project Name', date: '14/03/2025' },
-    { title: 'Implement Task Deadline Alerts', project: 'Project Name', date: '14/03/2025' },
-    { title: 'Developing Task Card', project: 'Project Name', date: '14/03/2025' }
-  ];
+  showForm = false;
+  editingTask: Task | null = null;
+  newTask = { title: '', project: '', date: '', status: 'new' as 'new' | 'inProgress' | 'completed' | 'delivered' };
 
-  completed: Task[] = [
-    { title: 'Persistent Theme Setting', project: 'Project Name', date: '24/02/2025' },
-    { title: 'LocalStorage Integration', project: 'Project Name', date: '04/03/2025' }
-  ];
+  get newTasks() { return this.tasks.filter(t => t.status === 'new'); }
+  get inProgress() { return this.tasks.filter(t => t.status === 'inProgress'); }
+  get completed() { return this.tasks.filter(t => t.status === 'completed'); }
+  get delivered() { return this.tasks.filter(t => t.status === 'delivered'); }
 
-  delivered: Task[] = [
-    { title: 'User Testing & Feedback', project: 'Project Name', date: '17/02/2025' }
-  ];
+  openForm() {
+    this.showForm = true;
+    this.editingTask = null;
+    this.newTask = { title: '', project: '', date: '', status: 'new' };
+  }
+
+  closeForm() {
+    this.showForm = false;
+    this.editingTask = null;
+  }
+
+  addTask() {
+    if (this.newTask.title && this.newTask.project && this.newTask.date) {
+      const task: Task = {
+        id: Date.now(),
+        ...this.newTask
+      };
+      this.tasks.push(task);
+      this.closeForm();
+    }
+  }
+
+  editTask(task: Task) {
+    this.showForm = true;
+    this.editingTask = task;
+    this.newTask = { title: task.title, project: task.project, date: task.date, status: task.status };
+  }
+
+  updateTask() {
+    if (this.editingTask && this.newTask.title && this.newTask.project && this.newTask.date) {
+      this.editingTask.title = this.newTask.title;
+      this.editingTask.project = this.newTask.project;
+      this.editingTask.date = this.newTask.date;
+      this.editingTask.status = this.newTask.status;
+      this.closeForm();
+    }
+  }
+
+  deleteTask(id: number) {
+    this.tasks = this.tasks.filter(t => t.id !== id);
+  }
 }
