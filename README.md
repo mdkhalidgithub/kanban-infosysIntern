@@ -2,6 +2,9 @@
 
 A responsive Kanban board application built with Angular for task management.
 
+<img width="2869" height="1344" alt="image" src="https://github.com/user-attachments/assets/1f48ebb3-943d-4bff-8ada-9773eaf6cbdb" />
+
+
 ## Features
 
 - **CRUD Operations**: Create, Read, Update, and Delete tasks
