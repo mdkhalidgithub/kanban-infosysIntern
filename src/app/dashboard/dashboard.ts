@@ -17,21 +17,18 @@ interface Task {
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent { 
   tasks: Task[] = [
     { id: 1, title: 'Design UI Wireframe', project: 'Project Name', date: '14/03/2026', status: 'new' },
-    { id: 2, title: 'Design Task Filtering UI', project: 'Project Name', date: '14/03/2026', status: 'new' },
-    { id: 3, title: 'Implement Task Sorting', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
-    { id: 4, title: 'Implement Task Deadline Alerts', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
-    { id: 5, title: 'Developing Task Card', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
-    { id: 6, title: 'Persistent Theme Setting', project: 'Project Name', date: '24/02/2026', status: 'completed' },
-    { id: 7, title: 'LocalStorage Integration', project: 'Project Name', date: '04/03/2026', status: 'completed' },
-    { id: 8, title: 'User Testing & Feedback', project: 'Project Name', date: '17/02/2026', status: 'delivered' }
+    { id: 2, title: 'Developing Task Card', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
+    { id: 3, title: 'Persistent Theme Setting', project: 'Project Name', date: '24/02/2026', status: 'completed' },
+    { id: 4, title: 'User Testing & Feedback', project: 'Project Name', date: '17/02/2026', status: 'delivered' }
   ];
 
   showForm = false;
   editingTask: Task | null = null;
   newTask = { title: '', project: '', date: '', status: 'new' as 'new' | 'inProgress' | 'completed' | 'delivered' };
+  showDeletePopup = false;
 
   get newTasks() { return this.tasks.filter(t => t.status === 'new'); }
   get inProgress() { return this.tasks.filter(t => t.status === 'inProgress'); }
@@ -78,5 +75,7 @@ export class DashboardComponent {
 
   deleteTask(id: number) {
     this.tasks = this.tasks.filter(t => t.id !== id);
+    this.showDeletePopup = true;
+    setTimeout(() => this.showDeletePopup = false, 2000);
   }
 }
