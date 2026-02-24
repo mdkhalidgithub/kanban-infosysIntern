@@ -1,59 +1,64 @@
-# Sample
+# Kanban Flow
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+A responsive Kanban board application built with Angular for task management.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **CRUD Operations**: Create, Read, Update, and Delete tasks
+- **Task Status Management**: Organize tasks across 4 columns (New Task, In Progress, Completed, Delivered)
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Success Notifications**: Visual feedback when tasks are deleted
+- **Modal Forms**: Clean interface for adding and editing tasks
+
+## Tech Stack
+
+- Angular 21.1.4
+- TypeScript
+- SCSS
+- Standalone Components
+
+## Installation
+
+```bash
+npm install
+```
+
+## Development Server
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Project Structure
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```
+src/
+├── app/
+│   ├── dashboard/
+│   │   ├── dashboard.ts          # Component logic with CRUD operations
+│   │   ├── dashboard.html        # Template with task board and modal
+│   │   └── dashboard.scss        # Responsive styles
+│   └── app.routes.ts
+└── main.ts
 ```
 
-## Running end-to-end tests
+## Usage
 
-For end-to-end (e2e) testing, run:
+1. **Add Task**: Click "+ NEW TASK" button, fill the form, select status, and submit
+2. **Edit Task**: Click "Edit" button on any task card to modify details
+3. **Delete Task**: Click "Delete" button to remove a task (shows success popup)
+4. **Move Tasks**: Use the status dropdown when editing to move tasks between columns
 
-```bash
-ng e2e
-```
+## Responsive Breakpoints
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Desktop: 4 columns (>1200px)
+- Tablet: 2 columns (768px - 1200px)
+- Mobile: 1 column (<768px)
