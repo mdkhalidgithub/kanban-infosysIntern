@@ -10,6 +10,7 @@
     <div class="task" *ngFor="let task of newTasks">
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
+      <p class="description">{{ task.description }}</p>
       <span class="date">{{ task.date }}</span>
       <div class="task-actions">
         <button (click)="editTask(task)">Edit</button>
@@ -25,6 +26,7 @@
     <div class="task" *ngFor="let task of inProgress">
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
+      <p class="description">{{ task.description }}</p>
       <span class="date">{{ task.date }}</span>
       <div class="task-actions">
         <button (click)="editTask(task)">Edit</button>
@@ -39,6 +41,7 @@
     <div class="task" *ngFor="let task of completed">
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
+      <p class="description">{{ task.description }}</p>
       <span class="date">{{ task.date }}</span>
       <div class="task-actions">
         <button (click)="editTask(task)">Edit</button>
@@ -53,6 +56,7 @@
     <div class="task" *ngFor="let task of delivered">
       <h4>{{ task.title }}</h4>
       <p>{{ task.project }}</p>
+      <p class="description">{{ task.description }}</p>
       <span class="date">{{ task.date }}</span>
       <div class="task-actions">
         <button (click)="editTask(task)">Edit</button>
@@ -68,6 +72,7 @@
     <form (ngSubmit)="editingTask ? updateTask() : addTask()">
       <input type="text" [(ngModel)]="newTask.title" name="title" placeholder="Task Title" required>
       <input type="text" [(ngModel)]="newTask.project" name="project" placeholder="Project Name" required>
+      <textarea [(ngModel)]="newTask.description" name="description" placeholder="Description" rows="3"></textarea>
       <input type="text" [(ngModel)]="newTask.date" name="date" placeholder="DD/MM/YYYY" required>
       <select [(ngModel)]="newTask.status" name="status" required>
         <option value="new">New Task</option>

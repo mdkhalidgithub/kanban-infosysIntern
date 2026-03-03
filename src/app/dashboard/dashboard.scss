@@ -82,6 +82,12 @@
     color: #666;
   }
 
+  .description {
+    font-size: 13px;
+    color: #888;
+    margin-top: 5px;
+  }
+
   .date {
     display: block;
     margin-top: 6px;
@@ -167,6 +173,15 @@
       border: 1px solid #ddd;
       border-radius: 4px;
       font-size: 14px;
+    }
+
+    textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      resize: vertical;
     }
 
     .form-actions {

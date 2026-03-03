@@ -7,6 +7,7 @@ interface Task {
   title: string;
   project: string;
   date: string;
+  description: string;
   status: 'new' | 'inProgress' | 'completed' | 'delivered';
 }
 
@@ -18,27 +19,45 @@ interface Task {
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent { 
-  tasks: Task[] = [
-    { id: 1, title: 'Design UI Wireframe', project: 'Project Name', date: '14/03/2026', status: 'new' },
-    { id: 2, title: 'Developing Task Card', project: 'Project Name', date: '14/03/2026', status: 'inProgress' },
-    { id: 3, title: 'Persistent Theme Setting', project: 'Project Name', date: '24/02/2026', status: 'completed' },
-    { id: 4, title: 'User Testing & Feedback', project: 'Project Name', date: '17/02/2026', status: 'delivered' }
-  ];
+  tasks: Task[] = [];
 
   showForm = false;
   editingTask: Task | null = null;
-  newTask = { title: '', project: '', date: '', status: 'new' as 'new' | 'inProgress' | 'completed' | 'delivered' };
+  newTask = { title: '', project: '', date: '', description: '', status: 'new' as 'new' | 'inProgress' | 'completed' | 'delivered' };
   showDeletePopup = false;
+
+  constructor() {
+    this.loadTasks();
+  }
 
   get newTasks() { return this.tasks.filter(t => t.status === 'new'); }
   get inProgress() { return this.tasks.filter(t => t.status === 'inProgress'); }
   get completed() { return this.tasks.filter(t => t.status === 'completed'); }
   get delivered() { return this.tasks.filter(t => t.status === 'delivered'); }
 
+  loadTasks() {
+    const saved = localStorage.getItem('kanban-tasks');
+    if (saved) {
+      this.tasks = JSON.parse(saved);
+    } else {
+      this.tasks = [
+        { id: 1, title: 'Design UI Wireframe', project: 'Project Name', date: '14/03/2026', description: 'Create wireframe mockups', status: 'new' },
+        { id: 2, title: 'Developing Task Card', project: 'Project Name', date: '14/03/2026', description: 'Build task card component', status: 'inProgress' },
+        { id: 3, title: 'Persistent Theme Setting', project: 'Project Name', date: '24/02/2026', description: 'Save theme preferences', status: 'completed' },
+        { id: 4, title: 'User Testing & Feedback', project: 'Project Name', date: '17/02/2026', description: 'Collect user feedback', status: 'delivered' }
+      ];
+      this.saveTasks();
+    }
+  }
+
+  saveTasks() {
+    localStorage.setItem('kanban-tasks', JSON.stringify(this.tasks));
+  }
+
   openForm() {
     this.showForm = true;
     this.editingTask = null;
-    this.newTask = { title: '', project: '', date: '', status: 'new' };
+    this.newTask = { title: '', project: '', date: '', description: '', status: 'new' };
   }
 
   closeForm() {
@@ -53,6 +72,7 @@ export class DashboardComponent {
         ...this.newTask
       };
       this.tasks.push(task);
+      this.saveTasks();
       this.closeForm();
     }
   }
@@ -60,7 +80,7 @@ export class DashboardComponent {
   editTask(task: Task) {
     this.showForm = true;
     this.editingTask = task;
-    this.newTask = { title: task.title, project: task.project, date: task.date, status: task.status };
+    this.newTask = { title: task.title, project: task.project, date: task.date, description: task.description, status: task.status };
   }
 
   updateTask() {
@@ -68,13 +88,16 @@ export class DashboardComponent {
       this.editingTask.title = this.newTask.title;
       this.editingTask.project = this.newTask.project;
       this.editingTask.date = this.newTask.date;
+      this.editingTask.description = this.newTask.description;
       this.editingTask.status = this.newTask.status;
+      this.saveTasks();
       this.closeForm();
     }
   }
 
   deleteTask(id: number) {
     this.tasks = this.tasks.filter(t => t.id !== id);
+    this.saveTasks();
     this.showDeletePopup = true;
     setTimeout(() => this.showDeletePopup = false, 2000);
   }
